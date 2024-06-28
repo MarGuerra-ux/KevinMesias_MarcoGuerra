@@ -1,0 +1,87 @@
+import random
+import os
+import csv
+
+def agregar_afiliados(afiliados):
+
+    rut = input("Ingrese su rut")
+    nombre = input("Ingrese su nombre")
+    apellidoPaterno = input("Ingrese apellido paterno")
+    edad = int(input("Ingrese su edad"))
+    estadoCivil = input("Ingrese su estado civil C = Casado, S = Soltero, V = Viudo")
+    genero = input("Ingrese su genero M = Masculino , F=Femenino")
+    fechaDeAfiliacion = input("ingrese fecha de afiliacion")
+
+    afiliados[0].append(rut)
+    afiliados[1].append(nombre)
+    afiliados[2].append(apellidoPaterno)
+    afiliados[3].append(edad)
+    afiliados[4].append(estadoCivil)
+    afiliados[5].append(genero)
+    afiliados[6].append(fechaDeAfiliacion)
+
+def buscar_afiliado():
+    
+    for i in range(afiliados):
+        print("")
+
+
+def inicializar_afiliados(filas, columnas):
+    afiliados = [['O' for _ in range(columnas)] for _ in range(filas)]
+    return afiliados
+
+def mostrar_lista ():
+    print("")
+
+filas = 10
+columnas = 10
+afiliados = inicializar_afiliados(filas, columnas)
+
+while True:
+
+    print("\nMenu De opciones")
+    print("1.- Registrar Afiliado")
+    print("2.- Buscar Afiliado")
+    print("3.- Imprimir Certificado")
+    print("4.- Salir")
+
+    opcionMenu = int(input("Ingrese su opcion"))
+
+    if opcionMenu == 1:
+
+        op = input("desea agregar a un afiliado s/n = ")
+
+
+        while op == "s":
+            agregar_afiliados(afiliados)
+
+            break
+
+        with open('afiliados.csv','w',newline='') as afiliados_csv:
+            escritor_csv = csv.writer(afiliados_csv)
+
+            escritor_csv.writerow(['rut','nombre','apellidoPaterno','edad','estadoCivil','genero','fechaDeAfiliacion'])
+        print("Los datos se han guardado en un archivo CSV con exito")
+        os.system("pause")
+        os.system("cls")
+        
+
+    elif opcionMenu == 2:
+
+
+        with open('afiliados.csv', 'r') as afiliados_csv:
+            lector_csv = csv.DictReader(afiliados_csv)        
+            for fila in lector_csv:
+                rut = fila['rut']
+                nombre = fila['nombre']
+                apellidoPaterno = fila['apellidoPaterno']
+                edad = "Mayor de edad" if edad >=18 else "Menor de edad"
+                estadoCivil = ['estadoCivil']
+                genero = ['genero']
+                fechaDeAfiliacion = ['fechaDeAfiliacion']
+
+
+    else:
+        print("Opcion no valida")
+        
+
